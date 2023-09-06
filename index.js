@@ -58,6 +58,11 @@ function logArrayElements(arr) {
     console.error("Аргумент має бути масивом!");
     return null;
   }
+  // Перебираємо кожен елемент масиву.
+  // for (let i = 0; i < arr.length; i++) {
+  //   // Виводимо в консоль поточний елемент масиву та його індекс в форматі Елемент <індекс>: <значення>
+  //   console.log(`Елемент ${i}: ${arr[i]}`);
+  // }
   arr.forEach((element, index) => console.log(`Element ${index}: ${element}`));
 }
 
@@ -122,11 +127,22 @@ function compareArrays(arr1, arr2) {
   // перетворимо ії в json і порівняємо
   // Використовуємо `console.assert()`, щоб вивести помилку, якщо масиви не однакові.
 
+  /*
+            // Сортуємо масиви за зростанням.
+          arr1.sort((a, b) => a - b);
+          arr2.sort((a, b) => a - b);
+ */
   arr1.sort();
   arr2.sort();
   const arr1String = JSON.stringify(arr1);
   const arr2String = JSON.stringify(arr2);
 
+  /*   // Використовуємо `console.assert()`, щоб вивести помилку, якщо масиви не однакові.
+       console.assert(
+       JSON.stringify(arr1) === JSON.stringify(arr2),
+       "Масиви не однакові!"
+      );
+  */
   console.assert(arr1String !== arr2String, "Масиви не однакові!");
 }
 
@@ -195,7 +211,12 @@ function traceBackward(n) {
 
   if (n > 1) {
     traceBackward(n - 1);
-  }
+  } /*
+  else {
+      // Виведемо стек викликів, коли досягнемо 1.
+      console.trace("Reached the end");
+    }
+    */
 }
 
 console.log("Завдання: 6 ==============================");
@@ -287,7 +308,7 @@ function calculateTotalPrice(products) {
   for (const product of products) {
     total += product.price;
   }
-  console.log(`Загальна вартість товарів: ${total}`);
+  console.log(`Загальна вартість товарів: ${total}`); //console.log("Загальна вартість товарів:", total);
   console.timeEnd("myTimer");
 }
 
@@ -319,8 +340,19 @@ function countVowelsAndConsonants(word) {
   // Скидаємо лічильники
   let vowels = "aeiou";
 
-  for (const letter of word) {
+  for (let letter of word) {
+    // Перетворюємо літеру на малу літеру для порівняння
+    letter = letter.toLowerCase();
+
+    // Перевіряємо, чи є літера в нашому рядку з голосними,якщо так виводимио лічильник голосних, інакше приголосних
+    if (vowels.includes(letter)) {
+      console.count("Голосна");
+    } else {
+      console.count("Приголосна");
+    }
   }
+  console.countReset("Голосна"); // Скидаємо лічильники
+  console.countReset("Приголосна");
 }
 console.log("Завдання: 10 ==============================");
 countVowelsAndConsonants("HelloWorld!");
